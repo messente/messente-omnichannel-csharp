@@ -46,27 +46,35 @@ using com.Messente.Omnichannel.Model;
 
 namespace Example
 {
-    public class Example
+    public class SendOmniMessageExample
     {
         public void main()
         {
-
             // Configure HTTP basic authorization: basicAuth
-            # API information from https://dashboard.messente.com/api-settings
             Configuration.Default.Username = "<MESSENTE_API_USERNAME>";
-            Configuration.Default.Password = "<MESSENTE_API_PASSWORD>"";
-            var apiInstance = new DeliveryReportApi();
-            var omnimessageId = new Guid?(); // Guid? | UUID of the Omnimessage to for which the delivery report is to be retrieved
+            Configuration.Default.Password = "<MESSENTE_API_PASSWORD>";
+
+            List<object> messages = new List<object>();
+            var sms = new SMS(sender: "<sender number or name>", text: "Hello SMS!");
+            var viber = new Viber(text: "Hello viber!");
+            var whatsapp = new WhatsApp(text: new WhatsAppText(body: "Hello WhatsApp!"));
+            messages.Add(viber);
+            messages.Add(whatsapp);
+            messages.Add(sms);
+
+            var apiInstance = new OmnimessageApi();
+            var omnimessage = new Omnimessage(to: "<phone_number>", messages: messages);
 
             try
             {
-                // Retrieves the delivery report for the Omnimessage
-                DeliveryReportResponse result = apiInstance.RetrieveDeliveryReport(omnimessageId);
+                // Sends an Omnimessage
+                OmniMessageCreateSuccessResponse result = apiInstance.SendOmnimessage(omnimessage);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DeliveryReportApi.RetrieveDeliveryReport: " + e.Message );
+                Debug.Print("Exception when calling OmnimessageApi.SendOmnimessage: " + e.Message);
+
             }
 
         }
