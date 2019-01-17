@@ -81,7 +81,7 @@ Contact: messente@messente.com
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
       <ProjectReference Include="..\com.Messente.Omnichannel\com.Messente.Omnichannel.csproj">
-          <Project>{2658A58B-FE51-4328-BC00-4AD97CA361CE}</Project>
+          <Project>{92C69A56-F1ED-4347-BC17-92D9AF62ECD2}</Project>
           <Name>com.Messente.Omnichannel</Name>
       </ProjectReference>
   </ItemGroup>

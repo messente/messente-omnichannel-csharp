@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{19F1DEBC-DE5E-4517-8062-F000CD499087}|Unit Tests">
+  <MonoDevelop.Ide.ItemProperties.com.Messente.Omnichannel.Test PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="com.Messente.Omnichannel" expanded="True" selected="True">
+            <Node name="com.Messente.Omnichannel" expanded="True">
+              <Node name="References" expanded="True" />
+            </Node>
+            <Node name="com.Messente.Omnichannel.Test" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -12,7 +12,7 @@ Contact: messente@messente.com
     
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2658A58B-FE51-4328-BC00-4AD97CA361CE}</ProjectGuid>
+    <ProjectGuid>{92C69A56-F1ED-4347-BC17-92D9AF62ECD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.Messente.Omnichannel</RootNamespace>

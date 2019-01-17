@@ -29,7 +29,7 @@ namespace com.Messente.Omnichannel.Model
     /// Message
     /// </summary>
     [DataContract]
-    [JsonConverter(typeof(JsonSubtypes), "channel")]
+    [JsonConverter(typeof(JsonSubtypes), "Channel")]
     [JsonSubtypes.KnownSubType(typeof(Viber), "Viber")]
     [JsonSubtypes.KnownSubType(typeof(SMS), "SMS")]
     [JsonSubtypes.KnownSubType(typeof(WhatsApp), "WhatsApp")]

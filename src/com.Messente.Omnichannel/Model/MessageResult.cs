@@ -31,11 +31,6 @@ namespace com.Messente.Omnichannel.Model
     public partial class MessageResult :  IEquatable<MessageResult>, IValidatableObject
     {
         /// <summary>
-        /// Gets or Sets Channel
-        /// </summary>
-        [DataMember(Name="channel", EmitDefaultValue=false)]
-        public Channel Channel { get; set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="MessageResult" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -84,6 +79,11 @@ namespace com.Messente.Omnichannel.Model
         [DataMember(Name="message_id", EmitDefaultValue=false)]
         public Guid? MessageId { get; set; }
 
+        /// <summary>
+        /// Gets or Sets Channel
+        /// </summary>
+        [DataMember(Name="channel", EmitDefaultValue=false)]
+        public Channel Channel { get; set; }
 
         /// <summary>
         /// Sender that was used for the message
