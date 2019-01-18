@@ -12,7 +12,7 @@ Contact: messente@messente.com
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DB2EEB83-185E-4188-B807-340A04FBCA8F}</ProjectGuid>
+    <ProjectGuid>{CC8784CC-0557-4397-B0EE-36AF0775CCF0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.Messente.Omnichannel</RootNamespace>
