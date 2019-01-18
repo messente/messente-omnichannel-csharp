@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = com.Messente.Omnichannel.Client.OpenAPIDateConverter;
 
 namespace com.Messente.Omnichannel.Model
@@ -28,8 +26,23 @@ namespace com.Messente.Omnichannel.Model
     /// DeliveryResult
     /// </summary>
     [DataContract]
-    public partial class DeliveryResult :  IEquatable<DeliveryResult>, IValidatableObject
+    public partial class DeliveryResult :  IEquatable<DeliveryResult>
     {
+        /// <summary>
+        /// Gets or Sets Status
+        /// </summary>
+        [DataMember(Name="status", EmitDefaultValue=false)]
+        public Status? Status { get; set; }
+        /// <summary>
+        /// Gets or Sets Channel
+        /// </summary>
+        [DataMember(Name="channel", EmitDefaultValue=false)]
+        public Channel? Channel { get; set; }
+        /// <summary>
+        /// Gets or Sets Err
+        /// </summary>
+        [DataMember(Name="err", EmitDefaultValue=false)]
+        public Err? Err { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DeliveryResult" /> class.
         /// </summary>
@@ -39,7 +52,7 @@ namespace com.Messente.Omnichannel.Model
         /// <param name="error">Human-readable description of what went wrong, *null* in case of success or if the messages has not been processed yet.</param>
         /// <param name="err">err.</param>
         /// <param name="timestamp">When this status was received by Omnichannel API.</param>
-        public DeliveryResult(Status status = default(Status), Channel channel = default(Channel), Guid? messageId = default(Guid?), string error = default(string), Err err = default(Err), DateTime? timestamp = default(DateTime?))
+        public DeliveryResult(Status? status = default(Status?), Channel? channel = default(Channel?), Guid? messageId = default(Guid?), string error = default(string), Err? err = default(Err?), DateTime? timestamp = default(DateTime?))
         {
             this.Status = status;
             this.Channel = channel;
@@ -49,17 +62,7 @@ namespace com.Messente.Omnichannel.Model
             this.Timestamp = timestamp;
         }
         
-        /// <summary>
-        /// Gets or Sets Status
-        /// </summary>
-        [DataMember(Name="status", EmitDefaultValue=false)]
-        public Status Status { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Channel
-        /// </summary>
-        [DataMember(Name="channel", EmitDefaultValue=false)]
-        public Channel Channel { get; set; }
 
         /// <summary>
         /// Unique identifier for the message
@@ -75,11 +78,6 @@ namespace com.Messente.Omnichannel.Model
         [DataMember(Name="error", EmitDefaultValue=false)]
         public string Error { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Err
-        /// </summary>
-        [DataMember(Name="err", EmitDefaultValue=false)]
-        public Err Err { get; set; }
 
         /// <summary>
         /// When this status was received by Omnichannel API
@@ -191,16 +189,6 @@ namespace com.Messente.Omnichannel.Model
                     hashCode = hashCode * 59 + this.Timestamp.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

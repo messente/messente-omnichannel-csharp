@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = com.Messente.Omnichannel.Client.OpenAPIDateConverter;
 
 namespace com.Messente.Omnichannel.Model
@@ -28,8 +26,18 @@ namespace com.Messente.Omnichannel.Model
     /// ErrorItem
     /// </summary>
     [DataContract]
-    public partial class ErrorItem :  IEquatable<ErrorItem>, IValidatableObject
+    public partial class ErrorItem :  IEquatable<ErrorItem>
     {
+        /// <summary>
+        /// Gets or Sets Title
+        /// </summary>
+        [DataMember(Name="title", EmitDefaultValue=false)]
+        public ResponseErrorTitle Title { get; set; }
+        /// <summary>
+        /// Gets or Sets Code
+        /// </summary>
+        [DataMember(Name="code", EmitDefaultValue=false)]
+        public ResponseErrorCode Code { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ErrorItem" /> class.
         /// </summary>
@@ -82,11 +90,6 @@ namespace com.Messente.Omnichannel.Model
             }
         }
         
-        /// <summary>
-        /// Gets or Sets Title
-        /// </summary>
-        [DataMember(Name="title", EmitDefaultValue=false)]
-        public ResponseErrorTitle Title { get; set; }
 
         /// <summary>
         /// Free form more detailed description of the error.
@@ -95,11 +98,6 @@ namespace com.Messente.Omnichannel.Model
         [DataMember(Name="detail", EmitDefaultValue=false)]
         public string Detail { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Code
-        /// </summary>
-        [DataMember(Name="code", EmitDefaultValue=false)]
-        public ResponseErrorCode Code { get; set; }
 
         /// <summary>
         /// Describes which field is causing the issue in the payload, null for non 400 status code responses
@@ -195,16 +193,6 @@ namespace com.Messente.Omnichannel.Model
                     hashCode = hashCode * 59 + this.Source.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

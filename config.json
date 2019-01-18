@@ -4,5 +4,7 @@
     "packageTitle": "Omnichannel API",
     "packageCompany": "Messente",
     "packageCopyright": "Messente 2019",
-    "packageVersion": "1.0.0"
+    "packageVersion": "1.0.3",
+    "targetFramework": "v5.0"
 }
+

@@ -12,7 +12,6 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using JsonSubTypes;
-using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = com.Messente.Omnichannel.Client.OpenAPIDateConverter;
 
 namespace com.Messente.Omnichannel.Model
@@ -29,11 +27,11 @@ namespace com.Messente.Omnichannel.Model
     /// Message
     /// </summary>
     [DataContract]
-    [JsonConverter(typeof(JsonSubtypes), "Channel")]
+    [JsonConverter(typeof(JsonSubtypes), "channel")]
     [JsonSubtypes.KnownSubType(typeof(Viber), "Viber")]
     [JsonSubtypes.KnownSubType(typeof(SMS), "SMS")]
     [JsonSubtypes.KnownSubType(typeof(WhatsApp), "WhatsApp")]
-    public partial class Message :  IEquatable<Message>, IValidatableObject
+    public partial class Message :  IEquatable<Message>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Message" /> class.
@@ -160,26 +158,6 @@ namespace com.Messente.Omnichannel.Model
                     hashCode = hashCode * 59 + this.Validity.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            return this.BaseValidate(validationContext);
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

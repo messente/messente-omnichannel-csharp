@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using RestSharp;
+using RestSharp.Portable;
 using com.Messente.Omnichannel.Client;
 using com.Messente.Omnichannel.Model;
 
@@ -203,7 +203,7 @@ namespace com.Messente.Omnichannel.Api
             if (omnimessageId == null)
                 throw new ApiException(400, "Missing required parameter 'omnimessageId' when calling DeliveryReportApi->RetrieveDeliveryReport");
 
-            var localVarPath = "/omnimessage/{omnimessage_id}/status";
+            var localVarPath = "./omnimessage/{omnimessage_id}/status";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -247,7 +247,7 @@ namespace com.Messente.Omnichannel.Api
             }
 
             return new ApiResponse<DeliveryReportResponse>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()),
                 (DeliveryReportResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DeliveryReportResponse)));
         }
 
@@ -276,7 +276,7 @@ namespace com.Messente.Omnichannel.Api
             if (omnimessageId == null)
                 throw new ApiException(400, "Missing required parameter 'omnimessageId' when calling DeliveryReportApi->RetrieveDeliveryReport");
 
-            var localVarPath = "/omnimessage/{omnimessage_id}/status";
+            var localVarPath = "./omnimessage/{omnimessage_id}/status";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -320,7 +320,7 @@ namespace com.Messente.Omnichannel.Api
             }
 
             return new ApiResponse<DeliveryReportResponse>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()),
                 (DeliveryReportResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DeliveryReportResponse)));
         }
 

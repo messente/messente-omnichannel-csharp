@@ -29,7 +29,7 @@ namespace com.Messente.Omnichannel.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.3";
 
         /// <summary>
         /// Identifier for ISO 8601 DateTime Format
@@ -57,11 +57,7 @@ namespace com.Messente.Omnichannel.Client
                     string.Format("Error calling {0}: {1}", methodName, response.Content),
                     response.Content);
             }
-            if (status == 0)
-            {
-                return new ApiException(status,
-                    string.Format("Error calling {0}: {1}", methodName, response.ErrorMessage), response.ErrorMessage);
-            }
+            
             return null;
         };
 
@@ -114,7 +110,7 @@ namespace com.Messente.Omnichannel.Client
         /// </summary>
         public Configuration()
         {
-            UserAgent = "OpenAPI-Generator/1.0.0/csharp";
+            UserAgent = "OpenAPI-Generator/1.0.3/csharp";
             BasePath = "https://api.messente.com/v1";
             DefaultHeader = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
@@ -187,7 +183,7 @@ namespace com.Messente.Omnichannel.Client
             string tempFolderPath = null,
             string dateTimeFormat = null,
             int timeout = 100000,
-            string userAgent = "OpenAPI-Generator/1.0.0/csharp"
+            string userAgent = "OpenAPI-Generator/1.0.3/csharp"
             // ReSharper restore UnusedParameter.Local
             )
         {
@@ -248,9 +244,8 @@ namespace com.Messente.Omnichannel.Client
         /// </summary>
         public virtual int Timeout
         {
-            
-            get { return ApiClient.RestClient.Timeout; }
-            set { ApiClient.RestClient.Timeout = value; }
+            get { return (int)ApiClient.RestClient.Timeout.GetValueOrDefault(TimeSpan.FromSeconds(0)).TotalMilliseconds; }
+            set { ApiClient.RestClient.Timeout = TimeSpan.FromMilliseconds(value); }
         }
 
         /// <summary>
@@ -328,7 +323,7 @@ namespace com.Messente.Omnichannel.Client
         }
 
         /// <summary>
-        /// Gets or sets the date time format used when serializing in the ApiClient
+        /// Gets or sets the the date time format used when serializing in the ApiClient
         /// By default, it's set to ISO 8601 - "o", for others see:
         /// https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx
         /// and https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
@@ -418,10 +413,9 @@ namespace com.Messente.Omnichannel.Client
         public static String ToDebugReport()
         {
             String report = "C# SDK (com.Messente.Omnichannel) Debug Report:\n";
-            report += "    OS: " + System.Environment.OSVersion + "\n";
-            report += "    .NET Framework Version: " + System.Environment.Version  + "\n";
+            report += "    OS: " + System.Runtime.InteropServices.RuntimeInformation.OSDescription + "\n";
             report += "    Version of the API: 0.0.2\n";
-            report += "    SDK Package Version: 1.0.0\n";
+            report += "    SDK Package Version: 1.0.3\n";
 
             return report;
         }

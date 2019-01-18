@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = com.Messente.Omnichannel.Client.OpenAPIDateConverter;
 
 namespace com.Messente.Omnichannel.Model
@@ -28,7 +26,7 @@ namespace com.Messente.Omnichannel.Model
     /// Omnimessage
     /// </summary>
     [DataContract]
-    public partial class Omnimessage :  IEquatable<Omnimessage>, IValidatableObject
+    public partial class Omnimessage :  IEquatable<Omnimessage>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Omnimessage" /> class.
@@ -42,7 +40,7 @@ namespace com.Messente.Omnichannel.Model
         /// <param name="to">Phone number of the recipient in e.164 format (required).</param>
         /// <param name="dlrUrl">URL where the delivery report will be sent.</param>
         /// <param name="timeToSend">Optional parameter for sending messages at some specific time in the future. Time must be specified in the 8601 format. If no timezone is specified, then the timezone is assumed to be UTC. Examples: Time specified with timezone: 2018-06-22T09:05:07+00:00 Time specified in UTC: 2018-06-22T09:05:07Z Time specified without timezone: 2018-06-22T09:05 (equivalent to 2018-06-22T09:05+00:00) .</param>
-        public Omnimessage(List<OneOfViberSMSWhatsApp> messages = default(List<OneOfViberSMSWhatsApp>), string to = default(string), string dlrUrl = default(string), DateTime? timeToSend = default(DateTime?))
+        public Omnimessage(List<Object> messages = default(List<Object>), string to = default(string), string dlrUrl = default(string), DateTime? timeToSend = default(DateTime?))
         {
             // to ensure "messages" is required (not null)
             if (messages == null)
@@ -70,7 +68,7 @@ namespace com.Messente.Omnichannel.Model
         /// Gets or Sets Messages
         /// </summary>
         [DataMember(Name="messages", EmitDefaultValue=false)]
-        public List<OneOfViberSMSWhatsApp> Messages { get; set; }
+        public List<Object> Messages { get; set; }
 
         /// <summary>
         /// Phone number of the recipient in e.164 format
@@ -180,16 +178,6 @@ namespace com.Messente.Omnichannel.Model
                     hashCode = hashCode * 59 + this.TimeToSend.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

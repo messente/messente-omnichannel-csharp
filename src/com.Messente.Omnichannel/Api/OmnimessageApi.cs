@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using RestSharp;
+using RestSharp.Portable;
 using com.Messente.Omnichannel.Client;
 using com.Messente.Omnichannel.Model;
 
@@ -244,7 +244,7 @@ namespace com.Messente.Omnichannel.Api
             if (omnimessageId == null)
                 throw new ApiException(400, "Missing required parameter 'omnimessageId' when calling OmnimessageApi->CancelScheduledMessage");
 
-            var localVarPath = "/omnimessage/{omnimessage_id}";
+            var localVarPath = "./omnimessage/{omnimessage_id}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -288,7 +288,7 @@ namespace com.Messente.Omnichannel.Api
             }
 
             return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()),
                 null);
         }
 
@@ -316,7 +316,7 @@ namespace com.Messente.Omnichannel.Api
             if (omnimessageId == null)
                 throw new ApiException(400, "Missing required parameter 'omnimessageId' when calling OmnimessageApi->CancelScheduledMessage");
 
-            var localVarPath = "/omnimessage/{omnimessage_id}";
+            var localVarPath = "./omnimessage/{omnimessage_id}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -360,7 +360,7 @@ namespace com.Messente.Omnichannel.Api
             }
 
             return new ApiResponse<Object>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()),
                 null);
         }
 
@@ -388,7 +388,7 @@ namespace com.Messente.Omnichannel.Api
             if (omnimessage == null)
                 throw new ApiException(400, "Missing required parameter 'omnimessage' when calling OmnimessageApi->SendOmnimessage");
 
-            var localVarPath = "/omnimessage";
+            var localVarPath = "./omnimessage";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -440,7 +440,7 @@ namespace com.Messente.Omnichannel.Api
             }
 
             return new ApiResponse<OmniMessageCreateSuccessResponse>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()),
                 (OmniMessageCreateSuccessResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(OmniMessageCreateSuccessResponse)));
         }
 
@@ -469,7 +469,7 @@ namespace com.Messente.Omnichannel.Api
             if (omnimessage == null)
                 throw new ApiException(400, "Missing required parameter 'omnimessage' when calling OmnimessageApi->SendOmnimessage");
 
-            var localVarPath = "/omnimessage";
+            var localVarPath = "./omnimessage";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -521,7 +521,7 @@ namespace com.Messente.Omnichannel.Api
             }
 
             return new ApiResponse<OmniMessageCreateSuccessResponse>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                localVarResponse.Headers.ToDictionary(x => x.Key, x => x.Value.ToString()),
                 (OmniMessageCreateSuccessResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(OmniMessageCreateSuccessResponse)));
         }
 
