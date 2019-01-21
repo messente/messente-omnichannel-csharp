@@ -1,0 +1,11 @@
+{
+    "packageName": "com.Messente.Omnichannel",
+    "packageDescription": "This library allows sending messages to various channels such as WhatsApp, Viber and SMS with fallback to backup channels in case of failure",
+    "packageTitle": "Omnichannel API",
+    "packageCompany": "Messente",
+    "packageCopyright": "Messente 2019",
+    "packageVersion": "1.0.3",
+    "packageGuid": "{CC8784CC-0557-4397-B0EE-36AF0775CCF0}",
+    "targetFramework": "v5.0"
+}
+

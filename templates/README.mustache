@@ -1,0 +1,163 @@
+# {{packageName}} - the C# library for Messente's {{appName}}
+
+{{#appDescription}}
+{{{appDescription}}}
+{{/appDescription}}
+
+<a name="frameworks-supported"></a>
+## Frameworks supported
+{{#netStandard}}
+- .NET Core >=1.0
+- .NET Framework >=4.6
+- Mono/Xamarin >=vNext
+- UWP >=10.0
+{{/netStandard}}
+{{^netStandard}}
+{{^supportsUWP}}
+- .NET 4.0 or later
+- Windows Phone 7.1 (Mango)
+{{/supportsUWP}}
+{{#supportsUWP}}
+- UWP
+{{/supportsUWP}}
+{{/netStandard}}
+
+<a name="dependencies"></a>
+## Dependencies
+{{#netStandard}}
+- FubarCoder.RestSharp.Portable.Core >=4.0.7
+- FubarCoder.RestSharp.Portable.HttpClient >=4.0.7
+- Newtonsoft.Json >=10.0.3
+{{/netStandard}}
+{{^netStandard}}
+- [RestSharp](https://www.nuget.org/packages/RestSharp) - 105.1.0 or later
+- [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json/) - 7.0.0 or later
+- [JsonSubTypes](https://www.nuget.org/packages/JsonSubTypes/) - 1.2.0 or later
+
+The DLLs included in the package may not be the latest version. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
+```
+Install-Package RestSharp
+Install-Package Newtonsoft.Json
+Install-Package JsonSubTypes
+```
+
+NOTE: RestSharp versions greater than 105.1.0 have a bug which causes file uploads to fail. See [RestSharp#742](https://github.com/restsharp/RestSharp/issues/742)
+{{/netStandard}}
+
+<a name="installation"></a>
+## Installation
+{{#netStandard}}
+Generate the DLL using your preferred tool
+{{/netStandard}}
+{{^netStandard}}
+Run the following command to generate the DLL
+- [Mac/Linux] `/bin/sh build.sh`
+- [Windows] `build.bat`
+{{/netStandard}}
+
+Then include the DLL (under the `bin` folder) in the C# project, and use the namespaces:
+```csharp
+using {{packageName}}.{{apiPackage}};
+using {{packageName}}.Client;
+using {{packageName}}.{{modelPackage}};
+```
+<a name="getting-started"></a>
+## Getting Started
+
+```csharp
+using System;
+using System.Diagnostics;
+using System.Collections.Generic;
+using {{packageName}}.{{apiPackage}};
+using {{packageName}}.Client;
+using {{packageName}}.{{modelPackage}};
+
+namespace Example
+{
+    public class SendOmniMessageExample
+    {
+        public static void Main()
+        {
+            // Configure HTTP basic authorization: basicAuth
+            Configuration.Default.Username = "<MESSENTE_API_USERNAME>";
+            Configuration.Default.Password = "<MESSENTE_API_PASSWORD>";
+
+            List<object> messages = new List<object>();
+            var sms = new SMS(sender: "<sender number or name>", text: "Hello SMS!");
+            var viber = new Viber(text: "Hello viber!");
+            var whatsapp = new WhatsApp(text: new WhatsAppText(body: "Hello WhatsApp!"));
+            messages.Add(viber);
+            messages.Add(whatsapp);
+            messages.Add(sms);
+
+            var apiInstance = new OmnimessageApi();
+            var omnimessage = new Omnimessage(to: "<phone_number>", messages: messages);
+
+            try
+            {
+                // Sends an Omnimessage
+                OmniMessageCreateSuccessResponse result = apiInstance.SendOmnimessage(omnimessage);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling OmnimessageApi.SendOmnimessage: " + e.Message);
+
+            }
+
+        }
+    }
+}
+```
+
+<a name="documentation-for-api-endpoints"></a>
+## Documentation for API Endpoints
+
+All URIs are relative to *{{{basePath}}}*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{classname}}* | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationIdLowerCase}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{{summary}}}{{/summary}}
+{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
+
+<a name="documentation-for-models"></a>
+## Documentation for Models
+
+{{#modelPackage}}
+{{#models}}{{#model}} - [{{{modelPackage}}}.{{{classname}}}]({{modelDocPath}}{{{classname}}}.md)
+{{/model}}{{/models}}
+{{/modelPackage}}
+{{^modelPackage}}
+No model defined in this package
+{{/modelPackage}}
+
+<a name="documentation-for-authorization"></a>
+## Documentation for Authorization
+
+{{^authMethods}}
+All endpoints do not require authorization.
+{{/authMethods}}
+{{#authMethods}}
+{{#last}}
+Authentication schemes defined for the API:
+{{/last}}
+{{/authMethods}}
+{{#authMethods}}
+<a name="{{name}}"></a>
+### {{name}}
+
+{{#isApiKey}}- **Type**: API key
+- **API key parameter name**: {{keyParamName}}
+- **Location**: {{#isKeyInQuery}}URL query string{{/isKeyInQuery}}{{#isKeyInHeader}}HTTP header{{/isKeyInHeader}}
+{{/isApiKey}}
+{{#isBasic}}- **Type**: HTTP basic authentication
+{{/isBasic}}
+{{#isOAuth}}- **Type**: OAuth
+- **Flow**: {{flow}}
+- **Authorization URL**: {{authorizationUrl}}
+- **Scopes**: {{^scopes}}N/A{{/scopes}}
+{{#scopes}}  - {{scope}}: {{description}}
+{{/scopes}}
+{{/isOAuth}}
+
+{{/authMethods}}
