@@ -40,7 +40,7 @@ namespace Example
 {
     public class SendOmniMessageExample
     {
-        public void main()
+        public static void Main()
         {
             // Configure HTTP basic authorization: basicAuth
             Configuration.Default.Username = "<MESSENTE_API_USERNAME>";
