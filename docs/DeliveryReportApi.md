@@ -25,7 +25,7 @@ namespace Example
 {
     public class RetrieveDeliveryReportExample
     {
-        public void main()
+        public static void Main()
         {
             // Configure HTTP basic authorization: basicAuth
             Configuration.Default.Username = "YOUR_USERNAME";
