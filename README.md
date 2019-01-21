@@ -31,6 +31,7 @@ using com.Messente.Omnichannel.Model;
 ```csharp
 using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 using com.Messente.Omnichannel.Api;
 using com.Messente.Omnichannel.Client;
 using com.Messente.Omnichannel.Model;

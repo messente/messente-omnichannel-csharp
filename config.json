@@ -5,6 +5,7 @@
     "packageCompany": "Messente",
     "packageCopyright": "Messente 2019",
     "packageVersion": "1.0.3",
+    "packageGuid": "{CC8784CC-0557-4397-B0EE-36AF0775CCF0}",
     "targetFramework": "v5.0"
 }
 
