@@ -23,11 +23,44 @@ using OpenAPIDateConverter = com.Messente.Omnichannel.Client.OpenAPIDateConverte
 namespace com.Messente.Omnichannel.Model
 {
     /// <summary>
-    /// SMS
+    /// SMS message content
     /// </summary>
     [DataContract]
-    public partial class SMS : Message,  IEquatable<SMS>
+    public partial class SMS :  IEquatable<SMS>
     {
+        /// <summary>
+        /// Defines how non-GSM characters will be treated: - \&quot;on\&quot; Use replacement settings from the account&#39;s [API Auto Replace settings page](https://dashboard.messente.com/api-settings/auto-replace)(default) - \&quot;full\&quot; All non GSM 03.38 characters will be replaced with suitable alternatives - \&quot;off\&quot; Message content is not modified in any way 
+        /// </summary>
+        /// <value>Defines how non-GSM characters will be treated: - \&quot;on\&quot; Use replacement settings from the account&#39;s [API Auto Replace settings page](https://dashboard.messente.com/api-settings/auto-replace)(default) - \&quot;full\&quot; All non GSM 03.38 characters will be replaced with suitable alternatives - \&quot;off\&quot; Message content is not modified in any way </value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum AutoconvertEnum
+        {
+            /// <summary>
+            /// Enum Full for value: full
+            /// </summary>
+            [EnumMember(Value = "full")]
+            Full = 1,
+
+            /// <summary>
+            /// Enum On for value: on
+            /// </summary>
+            [EnumMember(Value = "on")]
+            On = 2,
+
+            /// <summary>
+            /// Enum Off for value: off
+            /// </summary>
+            [EnumMember(Value = "off")]
+            Off = 3
+
+        }
+
+        /// <summary>
+        /// Defines how non-GSM characters will be treated: - \&quot;on\&quot; Use replacement settings from the account&#39;s [API Auto Replace settings page](https://dashboard.messente.com/api-settings/auto-replace)(default) - \&quot;full\&quot; All non GSM 03.38 characters will be replaced with suitable alternatives - \&quot;off\&quot; Message content is not modified in any way 
+        /// </summary>
+        /// <value>Defines how non-GSM characters will be treated: - \&quot;on\&quot; Use replacement settings from the account&#39;s [API Auto Replace settings page](https://dashboard.messente.com/api-settings/auto-replace)(default) - \&quot;full\&quot; All non GSM 03.38 characters will be replaced with suitable alternatives - \&quot;off\&quot; Message content is not modified in any way </value>
+        [DataMember(Name="autoconvert", EmitDefaultValue=false)]
+        public AutoconvertEnum? Autoconvert { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SMS" /> class.
         /// </summary>
@@ -36,10 +69,13 @@ namespace com.Messente.Omnichannel.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SMS" /> class.
         /// </summary>
+        /// <param name="sender">Phone number or alphanumeric sender name.</param>
+        /// <param name="validity">After how many minutes this channel is considered as failed and the next channel is attempted.</param>
         /// <param name="text">Text content of the SMS (required).</param>
         /// <param name="autoconvert">Defines how non-GSM characters will be treated: - \&quot;on\&quot; Use replacement settings from the account&#39;s [API Auto Replace settings page](https://dashboard.messente.com/api-settings/auto-replace)(default) - \&quot;full\&quot; All non GSM 03.38 characters will be replaced with suitable alternatives - \&quot;off\&quot; Message content is not modified in any way .</param>
         /// <param name="udh">hex-encoded string containing SMS UDH.</param>
-        public SMS(string text = default(string), decimal? autoconvert = default(decimal?), string udh = default(string), string channel = default(string), string sender = default(string), int? validity = default(int?)) : base(channel, sender, validity)
+        /// <param name="channel">channel (default to &quot;sms&quot;).</param>
+        public SMS(string sender = default(string), int? validity = default(int?), string text = default(string), AutoconvertEnum? autoconvert = default(AutoconvertEnum?), string udh = default(string), string channel = "sms")
         {
             // to ensure "text" is required (not null)
             if (text == null)
@@ -50,10 +86,35 @@ namespace com.Messente.Omnichannel.Model
             {
                 this.Text = text;
             }
+            this.Sender = sender;
+            this.Validity = validity;
             this.Autoconvert = autoconvert;
             this.Udh = udh;
+            // use default value if no "channel" provided
+            if (channel == null)
+            {
+                this.Channel = "sms";
+            }
+            else
+            {
+                this.Channel = channel;
+            }
         }
         
+        /// <summary>
+        /// Phone number or alphanumeric sender name
+        /// </summary>
+        /// <value>Phone number or alphanumeric sender name</value>
+        [DataMember(Name="sender", EmitDefaultValue=false)]
+        public string Sender { get; set; }
+
+        /// <summary>
+        /// After how many minutes this channel is considered as failed and the next channel is attempted
+        /// </summary>
+        /// <value>After how many minutes this channel is considered as failed and the next channel is attempted</value>
+        [DataMember(Name="validity", EmitDefaultValue=false)]
+        public int? Validity { get; set; }
+
         /// <summary>
         /// Text content of the SMS
         /// </summary>
@@ -61,12 +122,6 @@ namespace com.Messente.Omnichannel.Model
         [DataMember(Name="text", EmitDefaultValue=false)]
         public string Text { get; set; }
 
-        /// <summary>
-        /// Defines how non-GSM characters will be treated: - \&quot;on\&quot; Use replacement settings from the account&#39;s [API Auto Replace settings page](https://dashboard.messente.com/api-settings/auto-replace)(default) - \&quot;full\&quot; All non GSM 03.38 characters will be replaced with suitable alternatives - \&quot;off\&quot; Message content is not modified in any way 
-        /// </summary>
-        /// <value>Defines how non-GSM characters will be treated: - \&quot;on\&quot; Use replacement settings from the account&#39;s [API Auto Replace settings page](https://dashboard.messente.com/api-settings/auto-replace)(default) - \&quot;full\&quot; All non GSM 03.38 characters will be replaced with suitable alternatives - \&quot;off\&quot; Message content is not modified in any way </value>
-        [DataMember(Name="autoconvert", EmitDefaultValue=false)]
-        public decimal? Autoconvert { get; set; }
 
         /// <summary>
         /// hex-encoded string containing SMS UDH
@@ -76,6 +131,12 @@ namespace com.Messente.Omnichannel.Model
         public string Udh { get; set; }
 
         /// <summary>
+        /// Gets or Sets Channel
+        /// </summary>
+        [DataMember(Name="channel", EmitDefaultValue=false)]
+        public string Channel { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -83,10 +144,12 @@ namespace com.Messente.Omnichannel.Model
         {
             var sb = new StringBuilder();
             sb.Append("class SMS {\n");
-            sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
+            sb.Append("  Sender: ").Append(Sender).Append("\n");
+            sb.Append("  Validity: ").Append(Validity).Append("\n");
             sb.Append("  Text: ").Append(Text).Append("\n");
             sb.Append("  Autoconvert: ").Append(Autoconvert).Append("\n");
             sb.Append("  Udh: ").Append(Udh).Append("\n");
+            sb.Append("  Channel: ").Append(Channel).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -95,7 +158,7 @@ namespace com.Messente.Omnichannel.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public override string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -120,21 +183,36 @@ namespace com.Messente.Omnichannel.Model
             if (input == null)
                 return false;
 
-            return base.Equals(input) && 
+            return 
+                (
+                    this.Sender == input.Sender ||
+                    (this.Sender != null &&
+                    this.Sender.Equals(input.Sender))
+                ) && 
+                (
+                    this.Validity == input.Validity ||
+                    (this.Validity != null &&
+                    this.Validity.Equals(input.Validity))
+                ) && 
                 (
                     this.Text == input.Text ||
                     (this.Text != null &&
                     this.Text.Equals(input.Text))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Autoconvert == input.Autoconvert ||
                     (this.Autoconvert != null &&
                     this.Autoconvert.Equals(input.Autoconvert))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Udh == input.Udh ||
                     (this.Udh != null &&
                     this.Udh.Equals(input.Udh))
+                ) && 
+                (
+                    this.Channel == input.Channel ||
+                    (this.Channel != null &&
+                    this.Channel.Equals(input.Channel))
                 );
         }
 
@@ -146,13 +224,19 @@ namespace com.Messente.Omnichannel.Model
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.Sender != null)
+                    hashCode = hashCode * 59 + this.Sender.GetHashCode();
+                if (this.Validity != null)
+                    hashCode = hashCode * 59 + this.Validity.GetHashCode();
                 if (this.Text != null)
                     hashCode = hashCode * 59 + this.Text.GetHashCode();
                 if (this.Autoconvert != null)
                     hashCode = hashCode * 59 + this.Autoconvert.GetHashCode();
                 if (this.Udh != null)
                     hashCode = hashCode * 59 + this.Udh.GetHashCode();
+                if (this.Channel != null)
+                    hashCode = hashCode * 59 + this.Channel.GetHashCode();
                 return hashCode;
             }
         }

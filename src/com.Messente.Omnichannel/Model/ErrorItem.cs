@@ -29,16 +29,6 @@ namespace com.Messente.Omnichannel.Model
     public partial class ErrorItem :  IEquatable<ErrorItem>
     {
         /// <summary>
-        /// Gets or Sets Title
-        /// </summary>
-        [DataMember(Name="title", EmitDefaultValue=false)]
-        public ResponseErrorTitle Title { get; set; }
-        /// <summary>
-        /// Gets or Sets Code
-        /// </summary>
-        [DataMember(Name="code", EmitDefaultValue=false)]
-        public ResponseErrorCode Code { get; set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="ErrorItem" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -90,6 +80,11 @@ namespace com.Messente.Omnichannel.Model
             }
         }
         
+        /// <summary>
+        /// Gets or Sets Title
+        /// </summary>
+        [DataMember(Name="title", EmitDefaultValue=false)]
+        public ResponseErrorTitle Title { get; set; }
 
         /// <summary>
         /// Free form more detailed description of the error.
@@ -98,6 +93,11 @@ namespace com.Messente.Omnichannel.Model
         [DataMember(Name="detail", EmitDefaultValue=false)]
         public string Detail { get; set; }
 
+        /// <summary>
+        /// Gets or Sets Code
+        /// </summary>
+        [DataMember(Name="code", EmitDefaultValue=false)]
+        public ResponseErrorCode Code { get; set; }
 
         /// <summary>
         /// Describes which field is causing the issue in the payload, null for non 400 status code responses

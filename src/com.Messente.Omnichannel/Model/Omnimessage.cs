@@ -40,7 +40,7 @@ namespace com.Messente.Omnichannel.Model
         /// <param name="to">Phone number of the recipient in e.164 format (required).</param>
         /// <param name="dlrUrl">URL where the delivery report will be sent.</param>
         /// <param name="timeToSend">Optional parameter for sending messages at some specific time in the future. Time must be specified in the 8601 format. If no timezone is specified, then the timezone is assumed to be UTC. Examples: Time specified with timezone: 2018-06-22T09:05:07+00:00 Time specified in UTC: 2018-06-22T09:05:07Z Time specified without timezone: 2018-06-22T09:05 (equivalent to 2018-06-22T09:05+00:00) .</param>
-        public Omnimessage(List<Object> messages = default(List<Object>), string to = default(string), string dlrUrl = default(string), DateTime? timeToSend = default(DateTime?))
+        public Omnimessage(List<OneOfViberSMSWhatsApp> messages = default(List<OneOfViberSMSWhatsApp>), string to = default(string), string dlrUrl = default(string), DateTime? timeToSend = default(DateTime?))
         {
             // to ensure "messages" is required (not null)
             if (messages == null)
@@ -68,7 +68,7 @@ namespace com.Messente.Omnichannel.Model
         /// Gets or Sets Messages
         /// </summary>
         [DataMember(Name="messages", EmitDefaultValue=false)]
-        public List<Object> Messages { get; set; }
+        public List<OneOfViberSMSWhatsApp> Messages { get; set; }
 
         /// <summary>
         /// Phone number of the recipient in e.164 format

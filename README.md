@@ -95,7 +95,6 @@ Class | Method | HTTP request | Description
  - [Model.Err](docs/Err.md)
  - [Model.ErrorItem](docs/ErrorItem.md)
  - [Model.ErrorResponse](docs/ErrorResponse.md)
- - [Model.Message](docs/Message.md)
  - [Model.MessageResult](docs/MessageResult.md)
  - [Model.OmniMessageCreateSuccessResponse](docs/OmniMessageCreateSuccessResponse.md)
  - [Model.Omnimessage](docs/Omnimessage.md)

@@ -23,31 +23,54 @@ using OpenAPIDateConverter = com.Messente.Omnichannel.Client.OpenAPIDateConverte
 namespace com.Messente.Omnichannel.Model
 {
     /// <summary>
-    /// WhatsApp
+    /// WhatsApp message content. Only one of \&quot;text\&quot;, \&quot;image\&quot;, \&quot;document\&quot; or \&quot;audio\&quot; can be provided.
     /// </summary>
     [DataContract]
-    public partial class WhatsApp : Message,  IEquatable<WhatsApp>
+    public partial class WhatsApp :  IEquatable<WhatsApp>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WhatsApp" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected WhatsApp() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WhatsApp" /> class.
-        /// </summary>
+        /// <param name="sender">Phone number or alphanumeric sender name.</param>
+        /// <param name="validity">After how many minutes this channel is considered as failed and the next channel is attempted.</param>
         /// <param name="text">text.</param>
         /// <param name="image">image.</param>
         /// <param name="document">document.</param>
         /// <param name="audio">audio.</param>
-        public WhatsApp(WhatsAppText text = default(WhatsAppText), WhatsAppImage image = default(WhatsAppImage), WhatsAppDocument document = default(WhatsAppDocument), WhatsAppAudio audio = default(WhatsAppAudio), string channel = default(string), string sender = default(string), int? validity = default(int?)) : base(channel, sender, validity)
+        /// <param name="channel">channel (default to &quot;whatsapp&quot;).</param>
+        public WhatsApp(string sender = default(string), int? validity = default(int?), WhatsAppText text = default(WhatsAppText), WhatsAppImage image = default(WhatsAppImage), WhatsAppDocument document = default(WhatsAppDocument), WhatsAppAudio audio = default(WhatsAppAudio), string channel = "whatsapp")
         {
+            this.Sender = sender;
+            this.Validity = validity;
             this.Text = text;
             this.Image = image;
             this.Document = document;
             this.Audio = audio;
+            // use default value if no "channel" provided
+            if (channel == null)
+            {
+                this.Channel = "whatsapp";
+            }
+            else
+            {
+                this.Channel = channel;
+            }
         }
         
+        /// <summary>
+        /// Phone number or alphanumeric sender name
+        /// </summary>
+        /// <value>Phone number or alphanumeric sender name</value>
+        [DataMember(Name="sender", EmitDefaultValue=false)]
+        public string Sender { get; set; }
+
+        /// <summary>
+        /// After how many minutes this channel is considered as failed and the next channel is attempted
+        /// </summary>
+        /// <value>After how many minutes this channel is considered as failed and the next channel is attempted</value>
+        [DataMember(Name="validity", EmitDefaultValue=false)]
+        public int? Validity { get; set; }
+
         /// <summary>
         /// Gets or Sets Text
         /// </summary>
@@ -73,6 +96,12 @@ namespace com.Messente.Omnichannel.Model
         public WhatsAppAudio Audio { get; set; }
 
         /// <summary>
+        /// Gets or Sets Channel
+        /// </summary>
+        [DataMember(Name="channel", EmitDefaultValue=false)]
+        public string Channel { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -80,11 +109,13 @@ namespace com.Messente.Omnichannel.Model
         {
             var sb = new StringBuilder();
             sb.Append("class WhatsApp {\n");
-            sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
+            sb.Append("  Sender: ").Append(Sender).Append("\n");
+            sb.Append("  Validity: ").Append(Validity).Append("\n");
             sb.Append("  Text: ").Append(Text).Append("\n");
             sb.Append("  Image: ").Append(Image).Append("\n");
             sb.Append("  Document: ").Append(Document).Append("\n");
             sb.Append("  Audio: ").Append(Audio).Append("\n");
+            sb.Append("  Channel: ").Append(Channel).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -93,7 +124,7 @@ namespace com.Messente.Omnichannel.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public override string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -118,26 +149,41 @@ namespace com.Messente.Omnichannel.Model
             if (input == null)
                 return false;
 
-            return base.Equals(input) && 
+            return 
+                (
+                    this.Sender == input.Sender ||
+                    (this.Sender != null &&
+                    this.Sender.Equals(input.Sender))
+                ) && 
+                (
+                    this.Validity == input.Validity ||
+                    (this.Validity != null &&
+                    this.Validity.Equals(input.Validity))
+                ) && 
                 (
                     this.Text == input.Text ||
                     (this.Text != null &&
                     this.Text.Equals(input.Text))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Image == input.Image ||
                     (this.Image != null &&
                     this.Image.Equals(input.Image))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Document == input.Document ||
                     (this.Document != null &&
                     this.Document.Equals(input.Document))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Audio == input.Audio ||
                     (this.Audio != null &&
                     this.Audio.Equals(input.Audio))
+                ) && 
+                (
+                    this.Channel == input.Channel ||
+                    (this.Channel != null &&
+                    this.Channel.Equals(input.Channel))
                 );
         }
 
@@ -149,7 +195,11 @@ namespace com.Messente.Omnichannel.Model
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.Sender != null)
+                    hashCode = hashCode * 59 + this.Sender.GetHashCode();
+                if (this.Validity != null)
+                    hashCode = hashCode * 59 + this.Validity.GetHashCode();
                 if (this.Text != null)
                     hashCode = hashCode * 59 + this.Text.GetHashCode();
                 if (this.Image != null)
@@ -158,6 +208,8 @@ namespace com.Messente.Omnichannel.Model
                     hashCode = hashCode * 59 + this.Document.GetHashCode();
                 if (this.Audio != null)
                     hashCode = hashCode * 59 + this.Audio.GetHashCode();
+                if (this.Channel != null)
+                    hashCode = hashCode * 59 + this.Channel.GetHashCode();
                 return hashCode;
             }
         }

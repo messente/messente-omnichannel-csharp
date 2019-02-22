@@ -29,21 +29,6 @@ namespace com.Messente.Omnichannel.Model
     public partial class DeliveryResult :  IEquatable<DeliveryResult>
     {
         /// <summary>
-        /// Gets or Sets Status
-        /// </summary>
-        [DataMember(Name="status", EmitDefaultValue=false)]
-        public Status? Status { get; set; }
-        /// <summary>
-        /// Gets or Sets Channel
-        /// </summary>
-        [DataMember(Name="channel", EmitDefaultValue=false)]
-        public Channel? Channel { get; set; }
-        /// <summary>
-        /// Gets or Sets Err
-        /// </summary>
-        [DataMember(Name="err", EmitDefaultValue=false)]
-        public Err? Err { get; set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="DeliveryResult" /> class.
         /// </summary>
         /// <param name="status">status.</param>
@@ -52,7 +37,7 @@ namespace com.Messente.Omnichannel.Model
         /// <param name="error">Human-readable description of what went wrong, *null* in case of success or if the messages has not been processed yet.</param>
         /// <param name="err">err.</param>
         /// <param name="timestamp">When this status was received by Omnichannel API.</param>
-        public DeliveryResult(Status? status = default(Status?), Channel? channel = default(Channel?), Guid? messageId = default(Guid?), string error = default(string), Err? err = default(Err?), DateTime? timestamp = default(DateTime?))
+        public DeliveryResult(Status status = default(Status), Channel channel = default(Channel), Guid? messageId = default(Guid?), string error = default(string), Err err = default(Err), DateTime? timestamp = default(DateTime?))
         {
             this.Status = status;
             this.Channel = channel;
@@ -62,7 +47,17 @@ namespace com.Messente.Omnichannel.Model
             this.Timestamp = timestamp;
         }
         
+        /// <summary>
+        /// Gets or Sets Status
+        /// </summary>
+        [DataMember(Name="status", EmitDefaultValue=false)]
+        public Status Status { get; set; }
 
+        /// <summary>
+        /// Gets or Sets Channel
+        /// </summary>
+        [DataMember(Name="channel", EmitDefaultValue=false)]
+        public Channel Channel { get; set; }
 
         /// <summary>
         /// Unique identifier for the message
@@ -78,6 +73,11 @@ namespace com.Messente.Omnichannel.Model
         [DataMember(Name="error", EmitDefaultValue=false)]
         public string Error { get; set; }
 
+        /// <summary>
+        /// Gets or Sets Err
+        /// </summary>
+        [DataMember(Name="err", EmitDefaultValue=false)]
+        public Err Err { get; set; }
 
         /// <summary>
         /// When this status was received by Omnichannel API
